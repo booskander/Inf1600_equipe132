@@ -58,6 +58,7 @@ void main() {
 		Acc += *adder;
 		*res = *adder;
 	}
+	printf("La valeur finale de RES est %d", *res);
 	//liberate the memory
 	delete data;
 	delete data_tmp;
