@@ -4,7 +4,7 @@ string1:
 length:
 .int 49
 string2:
-.ascii "test"
+.ascii "your"
 
 res:
 .ascii "le resultat est %d"
@@ -15,10 +15,13 @@ res:
 true:
     movl length,    %edx
     subl %ecx,      %edx
-    decl %edi
+    dec %edi
     scasl
-    jne comparaison
-    jmp fin
+    jne back
+    je fin
+back:
+    inc %edi
+    jmp comparaison
 
 scan: 
     push %ebp
