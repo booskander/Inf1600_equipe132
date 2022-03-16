@@ -4,7 +4,7 @@ string1:
 length:
 .int 49
 string2:
-.ascii "your"
+.ascii "test"
 
 res:
 .ascii "le resultat est %d"
@@ -29,7 +29,7 @@ scan:
     push %ebx
     movl length,    %ecx
     movl $string1,  %edi
-    movl $string2, %esi
+    movl $string2,  %esi
     lodsl 
 
 comparaison:
