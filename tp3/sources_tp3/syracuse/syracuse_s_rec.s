@@ -5,7 +5,7 @@ pair:
     incl %ecx
     divl %ebx
 
-    call syracuse
+    jmp syracuse
 
 
 syracuse_s_rec:
@@ -45,7 +45,7 @@ syracuse:
 
     incl %ecx
 
-    call syracuse
+    jmp syracuse
 
 
 
