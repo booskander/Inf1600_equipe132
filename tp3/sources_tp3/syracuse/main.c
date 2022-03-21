@@ -14,11 +14,11 @@ int main()
 {
    unsigned int u0 = 15;
 
-   //printf("\n\nSuite de syracuse iterative - C\n");
-   //syracuse_c_iter(u0);
+   printf("\n\nSuite de syracuse iterative - C\n");
+   syracuse_c_iter(u0);
 
-   //printf("Suite de syracuse iterative - ASM\n");
-   //syracuse_s_iter(u0);
+   printf("Suite de syracuse iterative - ASM\n");
+   syracuse_s_iter(u0);
 
    // Decommentez cette partie lorsque vous avez implemente la version recursive
     printf("\n\nSuite de syracuse recursive - ASM\n");
@@ -66,7 +66,7 @@ void syracuse_c_rec(unsigned int un, unsigned int i)
    }
 }
 
-void afficher(int un, int i)
+void afficher(int i, int un)
 {
-   printf("Syracuse(%d) = %d\n", un, i);
+   printf("Syracuse(%d) = %d\n", i, un);
 }

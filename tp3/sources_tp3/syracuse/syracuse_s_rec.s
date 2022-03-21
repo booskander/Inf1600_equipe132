@@ -2,56 +2,64 @@
 .globl syracuse_s_rec
 .globl afficher
 pair:
+    movl $0, %edx
+    divl %edi
     incl %ecx
-    divl %ebx
 
-    jmp next
+    pushl %ecx
+    pushl %eax
+
+    call syracuse_s_rec
+
+    popl %eax
+    popl %ecx
 
 
 syracuse_s_rec:
     pushl  %ebp
     movl   %esp, %ebp
+    pushl %ebx
     movl 12(%esp), %eax
     movl 16(%esp), %ecx
+    movl $2, %edi
+    movl $3, %esi
+
+
+# DEBUT COMPLETION
+
     pushl %eax
     pushl %ecx
 
-# DEBUT COMPLETION
-syracuse:
     call afficher
 
-    cmpl $1, %eax
-    je retour
-
-    popl %eax
     popl %ecx
+    popl %eax
 
     pushl %eax
-
-    movl $2, %ebx
     movl $0, %edx
-    divl %ebx
-
+    divl %edi
     popl %eax
 
     cmpl $0, %edx
     je pair
 
-    movl $3, %ebx
-    mull %ebx
+    cmpl $1, %eax
+    je retour
+
+    mull %esi
     incl %eax
-
     incl %ecx
-next:
-    pushl %eax
+
     pushl %ecx
+    pushl %eax
 
-    jmp syracuse
+    call syracuse_s_rec
 
-
-
+    popl %eax
+    popl %ecx
 # FIN COMPLETION
 # NE RIEN MODIFIER APRES CETTE LIGNE
-retour:   
+retour:
+    popl %ebx
     leave
     ret
