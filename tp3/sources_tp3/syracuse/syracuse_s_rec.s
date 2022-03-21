@@ -5,28 +5,26 @@ pair:
     incl %ecx
     divl %ebx
 
-    jmp syracuse
+    jmp next
 
 
 syracuse_s_rec:
     pushl  %ebp
     movl   %esp, %ebp
-    pushl %ebx
     movl 12(%esp), %eax
     movl 16(%esp), %ecx
+    pushl %eax
+    pushl %ecx
 
 # DEBUT COMPLETION
 syracuse:
-    push %eax
-    push %ecx
-
     call afficher
-
-    popl %ecx
-    popl %eax
 
     cmpl $1, %eax
     je retour
+
+    popl %eax
+    popl %ecx
 
     pushl %eax
 
@@ -44,18 +42,16 @@ syracuse:
     incl %eax
 
     incl %ecx
+next:
+    pushl %eax
+    pushl %ecx
 
     jmp syracuse
 
 
 
-
-
-    
-
 # FIN COMPLETION
 # NE RIEN MODIFIER APRES CETTE LIGNE
 retour:   
-    popl %ebx
     leave
     ret
