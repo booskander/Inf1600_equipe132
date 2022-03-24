@@ -5,78 +5,118 @@ CUTOFF:
 .globl quicksort_s
 .globl medianOfThree
 .globl swapRefs
-back:
-    popl %ebx
-    jmp retour
+swap:
+    pushl %eax
+    pushl %ecx
+    pushl %edx
+
+    call swapRefs
+
+    popl %edx
+    popl %ecx
+    popl %eax
+    jmp while
+    
+    
 quicksort_s:
     pushl %ebp
     movl %esp, %ebp
     pushl %ebx
     # DEBUT COMPLETION
-    movl 8(%esp), %eax #tabl
-    movl 12(%esp), %ebx # left
-    movl 16(%esp), %ecx # right
+    movl 12(%esp), %edx #tableau
+    movl 16(%esp), %ecx #left
+    movl 20(%esp), %eax #right
 
-    pushl %ebx
-
-    addl $CUTOFF, %ebx
-    cmpl %ecx, %ebx
-    ja back
-
-    popl %ebx
-
-    pushl %eax
-
-    pushl %eax
-    pushl %ebx
     pushl %ecx
+    addl $CUTOFF, %ecx
+    cmpl %ecx, %eax
+    ja retour
+
+    popl %ecx
+    
+
+    pushl %eax
+    pushl %ecx
+    pushl %edx
 
     call medianOfThree
 
-    stosl
+    stosl 
+
+    popl %edx
     popl %ecx
-    popl %ebx
     popl %eax
 
-    popl %eax
 
-    movl %eax, %esi
 
-    addl %ebx, %eax
+    subl $4, %ecx
 
-    addl %ecx, %esi
-    decl %esi
+    pushl %ecx
+    pushl %eax
+
+while:
+    addl $4, %ecx
+    cmpl (%edx, %ecx, 1), %edi
+    jb while
 
     
-while:
-    pushl %eax
-    while1:
-        incl %eax
-        cmpl %edi, (%eax)
-        jnb while1
+while2:
+    subl $4, %eax
+    cmpl (%edx, %eax, 1), %edi
+    ja while2
+
+    cmpl %ecx, %eax
+    jb  swap
+
     popl %eax
-    pushl %esi
-    while2:
-        decl %esi
-        cmpl %edi, (%esi)
-        jna while2
-    popl %esi
+    popl %ecx
 
-    cmpl %eax, %esi
-    jnb break
+break:
+    
+    pushl %eax
+    
 
-    decl %edi
+    pushl %eax
+    pushl %ecx
+    pushl %edx
 
-    jmp while
+    call swapRefs
 
+    popl %edx
+    popl %ecx
+    popl %eax
 
+    popl %eax
 
+    movl %ecx, %ebx
 
+    pushl %ecx
 
+    subl $4, %ecx
 
+    pushl %ecx
+    pushl %ebx
+    pushl %edx
 
+    call quicksort_s
 
+    popl %edx
+    popl %ebx
+    popl %ecx
 
+    popl %ecx
+
+    pushl %eax
+    
+    addl $4, %ecx
+
+    pushl %ecx
+    pushl %edx
+
+    call quicksort_s
+
+    popl %edx
+    popl %ecx
 
 # FIN COMPLETION
 # NE RIEN MODIFIER APRES CETTE LIGNE

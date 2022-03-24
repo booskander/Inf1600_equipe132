@@ -5,14 +5,8 @@ pair:
     movl $0, %edx
     divl %edi
     incl %ecx
+    jmp next
 
-    pushl %ecx
-    pushl %eax
-
-    call syracuse_s_rec
-
-    popl %eax
-    popl %ecx
 
 
 syracuse_s_rec:
@@ -50,6 +44,7 @@ syracuse_s_rec:
     incl %eax
     incl %ecx
 
+next:
     pushl %ecx
     pushl %eax
 
